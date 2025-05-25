@@ -1,0 +1,33 @@
+.agagcl-converter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Garante que ocupa todo o espaço disponível */
+  }
+  
+  .converter-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 16px 0;
+    padding: 16px;
+  }
+  
+  .results-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 16px 0;
+    padding: 16px;
+  }
+  
+  .convert-button {
+    background-color: #d32f2f;
+    color: white;
+  }
+  
+  @media (max-width: 600px) {
+    .converter-card,
+    .results-card {
+      padding: 8px;
+    }
+  }  

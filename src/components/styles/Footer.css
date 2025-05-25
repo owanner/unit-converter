@@ -1,0 +1,42 @@
+/* Footer.css */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+  }
+  
+  .wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .content {
+    flex: 1;
+  }
+  
+  .icon-container {
+    margin-top: 10px;
+  }
+  
+  .icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .icon-item svg {
+    margin-right: 10px;
+    font-size: 24px;
+    color: white;
+  }
+  
+  .icon-item span {
+    color: white;
+  }
+  

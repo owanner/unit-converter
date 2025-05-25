@@ -1,0 +1,36 @@
+.converter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+  }
+  
+  .settings-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6vh;
+  }
+  
+  .settings-card,
+  .input-card,
+  .result-card {
+    width: 100%;
+    max-width: 100vh;
+  }
+
+ .result-card {
+    margin-bottom: 4vh;
+  }
+  
+  .results-table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+  }
+  
+  .results-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }

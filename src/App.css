@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent; /* Deixe transparente para herdar o fundo global */
 }
 
 .App-logo {
@@ -15,7 +17,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +36,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.MuiTabs-root {
+  margin: 0;
+  padding: 0;
+  background-color: gray; /* Sem fundo adicional */
+}
+
+.MuiTab-root {
+  margin: 0;
+  padding: 0;
+}
+
+.MuiBox-root {
+  background-color: #61dafb;
+}
+
+.css-MuiBox-root css-19midj6 {
+  background-color: red;
 }

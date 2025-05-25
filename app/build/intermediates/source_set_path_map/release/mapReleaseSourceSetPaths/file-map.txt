@@ -1,0 +1,10 @@
+localhost_3000.twa.app-core-1.1.0-0 /Users/wannermenezes/.gradle/caches/8.8/transforms/2144911bb09dce3a07f407e3b390637e/transformed/core-1.1.0/res
+localhost_3000.twa.app-browser-1.4.0-1 /Users/wannermenezes/.gradle/caches/8.8/transforms/b511174c15fdde7dea3e957094b4390b/transformed/browser-1.4.0/res
+localhost_3000.twa.app-androidbrowserhelper-2.5.0-2 /Users/wannermenezes/.gradle/caches/8.8/transforms/d3335fbdff4200978ad121d7b141def7/transformed/androidbrowserhelper-2.5.0/res
+localhost_3000.twa.app-pngs-3 /Users/wannermenezes/unit-converter/app/build/generated/res/pngs/release
+localhost_3000.twa.app-resValues-4 /Users/wannermenezes/unit-converter/app/build/generated/res/resValues/release
+localhost_3000.twa.app-packageReleaseResources-5 /Users/wannermenezes/unit-converter/app/build/intermediates/incremental/release/packageReleaseResources/merged.dir
+localhost_3000.twa.app-packageReleaseResources-6 /Users/wannermenezes/unit-converter/app/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
+localhost_3000.twa.app-release-7 /Users/wannermenezes/unit-converter/app/build/intermediates/merged_res/release/mergeReleaseResources
+localhost_3000.twa.app-main-8 /Users/wannermenezes/unit-converter/app/src/main/res
+localhost_3000.twa.app-release-9 /Users/wannermenezes/unit-converter/app/src/release/res

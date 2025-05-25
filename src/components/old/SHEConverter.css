@@ -1,0 +1,33 @@
+.she-converter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .converter-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 16px 0;
+    padding: 10px;
+  }
+  
+  .results-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 16px 0;
+    padding: 10px;
+  }
+  
+  .convert-button {
+    background-color: #d32f2f;
+    color: white;
+  }
+  
+  @media (max-width: 600px) {
+    .converter-card,
+    .results-card {
+      padding: 0px;
+    }
+  }
+  
