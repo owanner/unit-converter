@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Tabs, Tab, Box, IconButton, Drawer, List, ListItem, ListItemText, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SHEConverter from './components/SHEConverter';
-import CalomelConverter from './components/CalomelConverter';
-import AgAgClConverter from './components/AgAgClConverter';
-import HgOConverter from './components/HgOConverter';
-import RHEConverter from './components/RHEConverter';
+import SHEConverter from '../SHEConverter';
+import CalomelConverter from '../CalomelConverter';
+import AgAgClConverter from '../AgAgClConverter';
+import HgOConverter from '../HgOConverter';
+import RHEConverter from '../RHEConverter';
 import { Tabs, Tab, IconButton } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 //import Footer from './components/Footer'

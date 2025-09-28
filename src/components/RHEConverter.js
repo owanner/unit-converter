@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack } from "@mui/material";
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // 🟢 Adicionei o Alert aqui
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
@@ -7,12 +7,16 @@ const RHEConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
+  // 🟢 Novo estado para gerenciar alertas
+  const [error, setError] = useState("");
+
   // Valores de referência específicos para RHE
   const referenceDefaults = {
-    SHE: 0.000,
-    Calomel: 0.241,
-    AgAgCl: 0.199,
-    HgO: 0.098,
+    RHE: 0.000, // O valor do RHE será ajustado no cálculo
+    AgAgCl: 0.197,
+    SCE: 0.241,
+    HgHgO: 0.105,
+    SHE: 0.000
   };
 
   const [references, setReferences] = useState(referenceDefaults);
@@ -20,21 +24,29 @@ const RHEConverter = () => {
   const [phValue, setPhValue] = useState("");
   const [results, setResults] = useState({});
 
-  // Atualiza o valor de referência quando o usuário altera o input
   const updateReference = (electrode, value) => {
     setReferences((prev) => ({ ...prev, [electrode]: parseFloat(value) || 0 }));
   };
 
-  // Função para converter os valores
+  // 🟢 Alterei o handleConvert
   const handleConvert = () => {
+    if (!inputValue) {
+      // Se não tiver valores, exibe erro e não abre os resultados
+      setError("Please, fill in Potential field before converting.");
+      setShowResults(false);
+      return;
+    }
+
+    setError(""); // limpa erro caso já estivesse mostrando
+
     const rhe = parseFloat(inputValue) || 0;
     const ph = parseFloat(phValue) || 0;
 
     setResults({
-      SHE: (rhe - references.SHE - 0.059 * ph).toFixed(3),
-      Calomel: (rhe - 0.059 * ph - references.Calomel).toFixed(3),
-      AgAgCl: (rhe - 0.059 * ph - references.AgAgCl ).toFixed(3),
-      HgO: (rhe - 0.059 * ph  - references.HgO).toFixed(3),
+      AgAgCl: ((rhe - references.AgAgCl) - (0.059 * ph)).toFixed(3),
+      SCE: ((rhe - references.SCE) - (0.059 * ph)).toFixed(3),
+      HgHgO: ((rhe - references.HgHgO) - (0.059 * ph)).toFixed(3),
+      SHE: ((rhe - references.SHE) - (0.059 * ph)).toFixed(3)
     });
 
     setShowResults(true);
@@ -42,27 +54,29 @@ const RHEConverter = () => {
 
   return (
     <div className="converter-container">
-      {/* Botão para alternar Configurações com Título */}
+      {/* Botão para alternar Configurações */}
       <Stack direction="row" alignItems="center" spacing={1}>
-        <IconButton onClick={() => setShowSettings(!showSettings)} 
+        <IconButton onClick={() => setShowSettings(!showSettings)}
           sx={{
             borderRadius: 2,
             boxShadow: "3px 3px 6px rgba(0.1, 0.1, 0.1, 0.3)",
             transition: "0.3s",
-            "&:hover": {
-              boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)"
-            }
+            "&:hover": { boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)" }
           }}>
           {showSettings ? <ExpandLess /> : <ExpandMore />}
           <Typography variant="subtitle1">Set Reference Electrode Values</Typography>
         </IconButton>
       </Stack>
 
-      {/* Card de Configuração (opcional) */}
       {showSettings && (
         <Card className="settings-card">
           <CardContent>
-            <Typography variant="h6">Reference Electrode Values</Typography>
+            <Typography variant="h6">
+              Reference Electrode Values&nbsp;
+              <span style={{ fontSize: '0.70em', fontWeight: 400 }}>
+                (V vs. SHE)
+              </span>
+            </Typography>            
             {Object.keys(references).map((electrode) => (
               <TextField
                 key={electrode}
@@ -89,10 +103,11 @@ const RHEConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
+            required
           />
           <TextField
             type="number"
-            label="pH"
+            label="pH (optional)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
@@ -103,6 +118,13 @@ const RHEConverter = () => {
               Convert
             </Button>
           </div>
+
+          {/* 🟢 Novo: alerta bonito quando faltar campos */}
+          {error && (
+            <Alert severity="warning" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
         </CardContent>
       </Card>
 
@@ -122,7 +144,9 @@ const RHEConverter = () => {
                 {Object.keys(results).map((electrode) => (
                   <tr key={electrode}>
                     <td style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>{electrode}</td>
-                    <td style={{ borderBottom: "1px solid #ddd", padding: "8px", textAlign: "right" }}>{results[electrode]}</td>
+                    <td style={{ borderBottom: "1px solid #ddd", padding: "8px", textAlign: "right" }}>
+                      {results[electrode]}
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -2,13 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';  // Import the service worker registration
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#424242',
+    },
+    secondary: {
+      main: '#43a047',
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <App />
+     <ThemeProvider theme={theme}>
+      <App />
+     </ThemeProvider>
   </React.StrictMode>
 );
 

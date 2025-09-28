@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
-const CalomelConverter = () => {
+const RHEConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [error, setError] = useState(""); // ⬅️ novo estado para mensagens de erro
 
-  // Valores de referência específicos para Calomel
+  // Valores de referência específicos para RHE
   const referenceDefaults = {
-    RHE: 0.000,
-    AgAgCl: 0.197, // O valor do RHE será ajustado no cálculo
+    //RHE: 0.000,
+    AgAgCl: 0.197,
     SCE: 0.241,
-    HgHgO: 0.105,
-    SHE: 0.000
+    HgHgO: 0.105
   };
 
   const [references, setReferences] = useState(referenceDefaults);
@@ -29,23 +27,14 @@ const CalomelConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
-    // ⬅️ Validação: Potential é obrigatório
-    if (!inputValue) {
-      setError("Please, fill in Potential field before converting.");
-      setShowResults(false);
-      return;
-    }
-
-    setError(""); // limpa erro se válido
-
-    const calomel = parseFloat(inputValue) || 0;
-    const ph = parseFloat(phValue) || 0; // ⬅️ opcional
+    const rhe = parseFloat(inputValue) || 0;
+    const ph = parseFloat(phValue) || 0;
 
     setResults({
-      RHE: ((calomel - references.RHE) + (0.059 * ph)).toFixed(3),
-      AgAgCl: ((calomel - references.AgAgCl) + references.SCE).toFixed(3),
-      HgHgO: ((calomel - references.HgHgO) + references.SCE).toFixed(3),
-      SHE: ((calomel - references.SHE) + references.AgAgCl)
+      //RHE: (rhe).toFixed(3),
+      AgAgCl: (rhe - references.AgAgCl - (0.059 * ph)).toFixed(3),
+      SCE: (rhe - references.SCE - (0.059 * ph)).toFixed(3),
+      HgHgO: (rhe - references.HgHgO - (0.059 * ph)).toFixed(3)
     });
 
     setShowResults(true);
@@ -55,7 +44,7 @@ const CalomelConverter = () => {
     <div className="converter-container">
       {/* Botão para alternar Configurações com Título */}
       <Stack direction="row" alignItems="center" spacing={1}>
-        <IconButton onClick={() => setShowSettings(!showSettings)}
+        <IconButton onClick={() => setShowSettings(!showSettings)} 
           sx={{
             borderRadius: 2,
             boxShadow: "3px 3px 6px rgba(0.1, 0.1, 0.1, 0.3)",
@@ -73,12 +62,7 @@ const CalomelConverter = () => {
       {showSettings && (
         <Card className="settings-card">
           <CardContent>
-            <Typography variant="h6">
-              Reference Electrode Values&nbsp;
-              <span style={{ fontSize: '0.70em', fontWeight: 400 }}>
-                (V vs. SHE)
-              </span>
-            </Typography>
+            <Typography variant="h6">Reference Electrode Values (V vs. SHE)</Typography>
             {Object.keys(references).map((electrode) => (
               <TextField
                 key={electrode}
@@ -97,32 +81,23 @@ const CalomelConverter = () => {
       {/* Card de Entrada */}
       <Card className="input-card">
         <CardContent>
-          <Typography variant="h6">Convert from SCE</Typography>
+          <Typography variant="h6">Convert from RHE</Typography>
           <TextField
             type="number"
-            label="Potential (SCE, in V)"
+            label="Potential (RHE, in V)"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
-            required // ⬅️ marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
-
-          {/* ⬅️ Exibe alerta se houver erro */}
-          {error && (
-            <Alert severity="warning" sx={{ mt: 2 }}>
-              {error}
-            </Alert>
-          )}
-
           <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
             <Button onClick={handleConvert} variant="contained" color="primary" sx={{ px: 8 }}>
               Convert
@@ -155,9 +130,8 @@ const CalomelConverter = () => {
           </CardContent>
         </Card>
       )}
-
     </div>
   );
 };
 
-export default CalomelConverter;
+export default RHEConverter;

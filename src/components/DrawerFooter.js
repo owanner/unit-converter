@@ -5,8 +5,8 @@ const DrawerFooter = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        backgroundColor: "#a5a5a5",
+        maxWidth: "100vw",
+        backgroundColor: "#bdbdbd",
         color: "white",
         padding: "1vh",
         display: "flex",

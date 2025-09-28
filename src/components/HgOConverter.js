@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack } from "@mui/material";
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ adicionado Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
 const HgOConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState(""); // ⬅️ novo estado para mensagem de erro
 
   // Valores de referência específicos para HgO
   const referenceDefaults = {
-    SHE: 0.098,
-    Calomel: -0.143,
-    AgAgCl: -0.101,
-    RHE: 0.098, // O valor do RHE será ajustado no cálculo
+    RHE: 0.000,
+    AgAgCl: 0.197,
+    SCE: 0.241,
+    HgHgO: 0.105,
+    SHE: 0.000
   };
 
   const [references, setReferences] = useState(referenceDefaults);
@@ -27,14 +29,23 @@ const HgOConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
+    // ⬅️ Verificação: Potential é obrigatório
+    if (!inputValue) {
+      setError("Please, fill in Potential field before converting."); // ⬅️ define erro
+      setShowResults(false); // não mostra resultados se obrigatório não foi preenchido
+      return;
+    }
+
+    setError(""); // limpa erro se estiver preenchido
+
     const hgo = parseFloat(inputValue) || 0;
-    const ph = parseFloat(phValue) || 0;
+    const ph = parseFloat(phValue) || 0; // ⬅️ opcional
 
     setResults({
-      SHE: (hgo + references.SHE).toFixed(3),
-      Calomel: (hgo + references.Calomel).toFixed(3),
-      AgAgCl: (hgo + references.AgAgCl).toFixed(3),
-      RHE: (hgo + 0.059 * ph + + references.RHE).toFixed(3),
+      RHE: ((hgo - references.RHE) + (0.059 * ph)).toFixed(3),
+      AgAgCl: ((hgo - references.AgAgCl) + references.HgHgO).toFixed(3),
+      SCE: ((hgo - references.SCE) + references.HgHgO).toFixed(3),
+      SHE: ((hgo - references.SHE) + references.HgHgO).toFixed(3)
     });
 
     setShowResults(true);
@@ -62,7 +73,12 @@ const HgOConverter = () => {
       {showSettings && (
         <Card className="settings-card">
           <CardContent>
-            <Typography variant="h6">Reference Electrode Values</Typography>
+            <Typography variant="h6">
+              Reference Electrode Values&nbsp;
+              <span style={{ fontSize: '0.70em', fontWeight: 400 }}>
+                (V vs. SHE)
+              </span>
+            </Typography>
             {Object.keys(references).map((electrode) => (
               <TextField
                 key={electrode}
@@ -81,23 +97,32 @@ const HgOConverter = () => {
       {/* Card de Entrada */}
       <Card className="input-card">
         <CardContent>
-          <Typography variant="h6">Convert from HgO</Typography>
+          <Typography variant="h6">Convert from Hg/HgO</Typography>
           <TextField
             type="number"
-            label="Potential (HgO, in V)"
+            label="Potential (Hg/HgO, in V)"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
+            required // ⬅️ marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH"
+            label="pH (optional)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
+
+          {/* ⬅️ Mensagem de erro bonitinha */}
+          {error && (
+            <Alert severity="warning" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
             <Button onClick={handleConvert} variant="contained" color="primary" sx={{ px: 8 }}>
               Convert

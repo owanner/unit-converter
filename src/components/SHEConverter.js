@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack } from "@mui/material";
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css";
 
 const SHEConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState(""); // ⬅️ estado para mensagens de erro
 
   // Valores de referência específicos para SHE
   const referenceDefaults = {
-    Calomel: -0.241,
-    AgAgCl: -0.199,
-    HgO: -0.098,
-    RHE: 0.000, // O valor do RHE será ajustado no cálculo
+    RHE: 0.000,
+    AgAgCl: 0.197,
+    SCE: 0.241,
+    HgHgO: 0.105,
+    SHE: 0.000 // O valor do RHE será ajustado no cálculo
   };
 
   const [references, setReferences] = useState(referenceDefaults);
@@ -27,14 +29,22 @@ const SHEConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
+    if (!inputValue) {
+      setError("Please, fill in Potential field before converting.");
+      setShowResults(false);
+      return;
+    }
+
+    setError(""); // limpa erro se válido
+
     const she = parseFloat(inputValue) || 0;
     const ph = parseFloat(phValue) || 0;
 
     setResults({
-      Calomel: (she + references.Calomel).toFixed(3),
-      AgAgCl: (she + references.AgAgCl).toFixed(3),
-      HgO: (she + references.HgO).toFixed(3),
-      RHE: (she + references.RHE + 0.059 * ph).toFixed(3),
+      RHE: ((she - references.RHE) + (0.059 * ph)).toFixed(3),
+      AgAgCl: ((she - references.AgAgCl) + references.SHE).toFixed(3),
+      SCE: ((she - references.SCE) + references.SHE).toFixed(3),
+      HgO: ((she - references.HgHgO) + references.SHE).toFixed(3),
     });
 
     setShowResults(true);
@@ -62,7 +72,12 @@ const SHEConverter = () => {
       {showSettings && (
         <Card className="settings-card">
           <CardContent>
-            <Typography variant="h6">Reference Electrode Values</Typography>
+            <Typography variant="h6">
+              Reference Electrode Values&nbsp;
+              <span style={{ fontSize: '0.70em', fontWeight: 400 }}>
+                (V vs. SHE)
+              </span>
+            </Typography> 
             {Object.keys(references).map((electrode) => (
               <TextField
                 key={electrode}
@@ -89,15 +104,23 @@ const SHEConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
+            required
           />
           <TextField
             type="number"
-            label="pH"
+            label="pH (optional)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
+
+          {error && (
+            <Alert severity="warning" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
             <Button onClick={handleConvert} variant="contained" color="primary" sx={{ px: 8 }}>
               Convert

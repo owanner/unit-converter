@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Tabs, Tab, Box } from '@mui/material';
-import SHEConverter from './components/SHEConverter';
-import CalomelConverter from './components/CalomelConverter';
-import AgAgClConverter from './components/AgAgClConverter';
-import HgOConverter from './components/HgOConverter';
-import RHEConverter from './components/RHEConverter';
+import SHEConverter from '../SHEConverter';
+import CalomelConverter from '../CalomelConverter';
+import AgAgClConverter from '../AgAgClConverter';
+import HgOConverter from '../HgOConverter';
+import RHEConverter from '../RHEConverter';
 
 function App() {
   const [tabIndex, setTabIndex] = useState(0);

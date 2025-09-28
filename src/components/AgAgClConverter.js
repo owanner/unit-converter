@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack } from "@mui/material";
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
 const AgAgClConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState(""); // ⬅️ estado para mensagens de erro
 
   // Valores de referência específicos para AgAgCl
   const referenceDefaults = {
-    SHE: 0.199,
-    Calomel: -0.042,
-    HgO: 0.101,
-    RHE: 0.199, // O valor do RHE será ajustado no cálculo
+    RHE: 0.000, // O valor do RHE será ajustado no cálculo
+    AgAgCl: 0.197, 
+    SCE: 0.241,
+    HgHgO: 0.105,
+    SHE: 0.000
   };
 
   const [references, setReferences] = useState(referenceDefaults);
@@ -27,14 +29,23 @@ const AgAgClConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
+    // ⬅️ validação: Potential é obrigatório
+    if (!inputValue) {
+      setError("Please, fill in Potential field before converting.");
+      setShowResults(false);
+      return;
+    }
+
+    setError(""); // limpa erro se o campo for válido
+
     const agagcl = parseFloat(inputValue) || 0;
-    const ph = parseFloat(phValue) || 0;
+    const ph = parseFloat(phValue) || 0; // opcional
 
     setResults({
-      SHE: (agagcl + references.SHE).toFixed(3),
-      Calomel: (agagcl + references.Calomel).toFixed(3),
-      HgO: (agagcl + references.HgO).toFixed(3),
-      RHE: (agagcl + references.RHE + 0.059 * ph).toFixed(3),
+      RHE: ((agagcl - references.RHE) + (0.059 * ph)).toFixed(3),
+      SCE: ((agagcl - references.SCE) + references.AgAgCl).toFixed(3),
+      HgHgO: ((agagcl - references.HgHgO) +  references.AgAgCl).toFixed(3),
+      SHE: ((agagcl - references.SHE) + references.AgAgCl)
     });
 
     setShowResults(true);
@@ -62,7 +73,12 @@ const AgAgClConverter = () => {
       {showSettings && (
         <Card className="settings-card">
           <CardContent>
-            <Typography variant="h6">Reference Electrode Values</Typography>
+            <Typography variant="h6">
+              Reference Electrode Values&nbsp;
+              <span style={{ fontSize: '0.70em', fontWeight: 400 }}>
+                (V vs. SHE)
+              </span>
+            </Typography> 
             {Object.keys(references).map((electrode) => (
               <TextField
                 key={electrode}
@@ -89,15 +105,24 @@ const AgAgClConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
+            required // ⬅️ marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH"
+            label="pH (optional)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
+
+          {/* ⬅️ alerta bonitinho caso falte preencher Potential */}
+          {error && (
+            <Alert severity="warning" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
             <Button onClick={handleConvert} variant="contained" color="primary" sx={{ px: 8 }}>
               Convert
