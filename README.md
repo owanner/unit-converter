@@ -34,7 +34,7 @@ Try it here:
 ## ⚡ Installation & Development
 Clone the repository:
 ```bash
-git clone https://github.com/your-username/electrochemical-converter.git
+git clone https://github.com/owanner/electrochemical-converter.git
 cd electrochemical-converter
 ```
 
