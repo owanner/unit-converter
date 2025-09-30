@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ adicionado Alert
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // adicionado Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
 const HgOConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [error, setError] = useState(""); // ⬅️ novo estado para mensagem de erro
+  const [error, setError] = useState(""); // novo estado para mensagem de erro
 
   // Valores de referência específicos para HgO
   const referenceDefaults = {
@@ -31,7 +31,7 @@ const HgOConverter = () => {
   const handleConvert = () => {
     // ⬅️ Verificação: Potential é obrigatório
     if (!inputValue) {
-      setError("Please, fill in Potential field before converting."); // ⬅️ define erro
+      setError("Please, fill in Potential field before converting."); // define erro
       setShowResults(false); // não mostra resultados se obrigatório não foi preenchido
       return;
     }
@@ -105,18 +105,18 @@ const HgOConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
-            required // ⬅️ marca como obrigatório
+            required // marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH (mandatory for RHE)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
 
-          {/* ⬅️ Mensagem de erro bonitinha */}
+          {/* Mensagem de erro bonitinha */}
           {error && (
             <Alert severity="warning" sx={{ mt: 2 }}>
               {error}

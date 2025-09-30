@@ -22,7 +22,7 @@ function App() {
 
   const referenceElectrodes = [
     { name: 'Reversible Hydrogen Electrode (RHE)', potential: '0.000V' },
-    { name: 'Silver/Silver Chloride Electrode (Ag/AgCl)', potential: '+0.197V' },
+    { name: 'Silver/Silver Chloride Electrode (Ag/AgCl, KClsat.)', potential: '+0.197V' },
     { name: 'Saturated Calomel Electrode (SCE, Hg/Hg2Cl2, KClsat.)', potential: '+0.241V' },
     { name: 'Mercury/Mercuric Oxide Electrode (Hg/HgO, 1M, KOH)', potential: '+0.105V' },
     { name: 'vs. SHE (Standard Hydrogen Electrode)', potential: 'at a(H+)=1, T=25ºC, f(H2)=1bar.' },

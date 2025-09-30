@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; 
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
 const AgAgClConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [error, setError] = useState(""); // ⬅️ estado para mensagens de erro
+  const [error, setError] = useState(""); 
 
   // Valores de referência específicos para AgAgCl
   const referenceDefaults = {
-    RHE: 0.000, // O valor do RHE será ajustado no cálculo
+    RHE: 0.000,
     AgAgCl: 0.197, 
     SCE: 0.241,
     HgHgO: 0.105,
@@ -29,14 +29,14 @@ const AgAgClConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
-    // ⬅️ validação: Potential é obrigatório
+    // Validação: Potential é obrigatório
     if (!inputValue) {
       setError("Please, fill in Potential field before converting.");
       setShowResults(false);
       return;
     }
 
-    setError(""); // limpa erro se o campo for válido
+    setError(""); // Limpa erro se o campo for válido
 
     const agagcl = parseFloat(inputValue) || 0;
     const ph = parseFloat(phValue) || 0; // opcional
@@ -105,18 +105,18 @@ const AgAgClConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
-            required // ⬅️ marca como obrigatório
+            required // marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH (mandatory for RHE)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
 
-          {/* ⬅️ alerta bonitinho caso falte preencher Potential */}
+          {/* alerta bonitinho caso falte preencher Potential */}
           {error && (
             <Alert severity="warning" sx={{ mt: 2 }}>
               {error}

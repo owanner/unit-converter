@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // 🟢 Adicionei o Alert aqui
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
@@ -7,7 +7,7 @@ const RHEConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-  // 🟢 Novo estado para gerenciar alertas
+  // Novo estado para gerenciar alertas
   const [error, setError] = useState("");
 
   // Valores de referência específicos para RHE
@@ -28,7 +28,7 @@ const RHEConverter = () => {
     setReferences((prev) => ({ ...prev, [electrode]: parseFloat(value) || 0 }));
   };
 
-  // 🟢 Alterei o handleConvert
+  //Alterei o handleConvert
   const handleConvert = () => {
     if (!inputValue) {
       // Se não tiver valores, exibe erro e não abre os resultados
@@ -107,7 +107,7 @@ const RHEConverter = () => {
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH (mandatory for RHE)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
@@ -119,7 +119,7 @@ const RHEConverter = () => {
             </Button>
           </div>
 
-          {/* 🟢 Novo: alerta bonito quando faltar campos */}
+          {/* alerta bonito quando faltar campos */}
           {error && (
             <Alert severity="warning" sx={{ mt: 2 }}>
               {error}

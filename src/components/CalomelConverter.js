@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // import Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css"
 
 const CalomelConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [error, setError] = useState(""); // ⬅️ novo estado para mensagens de erro
+  const [error, setError] = useState(""); // novo estado para mensagens de erro
 
   // Valores de referência específicos para Calomel
   const referenceDefaults = {
     RHE: 0.000,
-    AgAgCl: 0.197, // O valor do RHE será ajustado no cálculo
+    AgAgCl: 0.197, 
     SCE: 0.241,
     HgHgO: 0.105,
     SHE: 0.000
@@ -29,7 +29,7 @@ const CalomelConverter = () => {
 
   // Função para converter os valores
   const handleConvert = () => {
-    // ⬅️ Validação: Potential é obrigatório
+    // Validação: Potential é obrigatório
     if (!inputValue) {
       setError("Please, fill in Potential field before converting.");
       setShowResults(false);
@@ -39,7 +39,7 @@ const CalomelConverter = () => {
     setError(""); // limpa erro se válido
 
     const calomel = parseFloat(inputValue) || 0;
-    const ph = parseFloat(phValue) || 0; // ⬅️ opcional
+    const ph = parseFloat(phValue) || 0; // opcional
 
     setResults({
       RHE: ((calomel - references.RHE) + (0.059 * ph)).toFixed(3),
@@ -105,18 +105,18 @@ const CalomelConverter = () => {
             onChange={(e) => setInputValue(e.target.value)}
             fullWidth
             margin="dense"
-            required // ⬅️ marca como obrigatório
+            required // marca como obrigatório
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH (mandatory for RHE)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
             margin="dense"
           />
 
-          {/* ⬅️ Exibe alerta se houver erro */}
+          {/* Exibe alerta se houver erro */}
           {error && (
             <Alert severity="warning" sx={{ mt: 2 }}>
               {error}

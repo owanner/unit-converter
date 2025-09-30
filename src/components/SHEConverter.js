@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // ⬅️ import Alert
+import { Card, CardContent, Button, TextField, Typography, IconButton, Stack, Alert } from "@mui/material"; // import Alert
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import "./styles/ConverterStyle.css";
 
 const SHEConverter = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [error, setError] = useState(""); // ⬅️ estado para mensagens de erro
+  const [error, setError] = useState(""); // estado para mensagens de erro
 
   // Valores de referência específicos para SHE
   const referenceDefaults = {
@@ -108,7 +108,7 @@ const SHEConverter = () => {
           />
           <TextField
             type="number"
-            label="pH (optional)"
+            label="pH (mandatory for RHE)"
             value={phValue}
             onChange={(e) => setPhValue(e.target.value)}
             fullWidth
