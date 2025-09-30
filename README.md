@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Electrochemical Converter ⚡️🔬
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Progressive Web App (PWA) for converting potentials between common electrochemical reference electrodes (SHE, RHE, SCE, Ag/AgCl, HgO).  
+Deployed at 👉 [electroconverter.netlify.app](https://electroconverter.netlify.app/)
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
+- Convert between **SHE**, **RHE**, **SCE (Calomel)**, **Ag/AgCl**, and **HgO** reference electrodes.
+- Built-in **default literature reference values** for each electrode.
+- Optional **custom reference values** (user-defined).
+- **pH-dependent RHE correction** included automatically.
+- Clean and responsive **Material UI design**.
+- Works offline as a **PWA**.
+- Exportable to APK for mobile use.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Live Demo
+Try it here:  
+👉 [https://electroconverter.netlify.app/](https://electroconverter.netlify.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
+- **React + Vite**
+- **Material UI (MUI)**
+- **JavaScript (ES6+)**
+- **PWA support** (offline usage, installable)
+- **Netlify** (deployment & hosting)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ⚡ Installation & Development
+Clone the repository:
+```bash
+git clone https://github.com/your-username/electrochemical-converter.git
+cd electrochemical-converter
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install dependencies:
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run the development server:
+```bash
+npm run dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Build for production:
+```bash
+npm run build
+```
 
-### `npm run eject`
+Preview production build:
+```bash
+npm run preview
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📱 PWA / Mobile
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Fully installable on Android, iOS, macOS, Windows.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Optionally packaged as an APK for offline mobile use.
 
-## Learn More
+| Electrode | vs. SHE (V)         |
+| --------- | ------------------- |
+| SCE       | +0.241              |
+| Ag/AgCl   | +0.197              |
+| Hg/HgO    | +0.098              |
+| RHE       | 0.000 (+0.059 × pH) |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+(Users may override these defaults in the app settings.)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🤝 Contributing
 
-### Code Splitting
+Pull requests are welcome!
+For major changes, please open an issue first to discuss what you would like to change.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📜 License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT License © 2025 Wanner Menezes
